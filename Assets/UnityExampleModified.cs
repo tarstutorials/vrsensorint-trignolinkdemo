@@ -49,6 +49,8 @@ public class UnityExample : MonoBehaviour
     public string latestHRData;
 
     private bool usingTrignoLink;
+    public string latestEMGData;
+    public string latestHRData;
 
     // Use this for initialization
     void Start()
