@@ -36,7 +36,7 @@ public class UnityExample : MonoBehaviour
     IDelsysDevice DeviceSource = null;
     int TotalLostPackets = 0;
     int TotalDataPoints = 0;
-    public TMP_Text APIStatusText, TestText, PipelineState;
+    public TMP_Text APIStatusText, TestText, PipelineState, EMGText, HRText;
     Pipeline RFPipeline;
     ITransformManager TransformManager;
     string text, pipeline_state;
@@ -45,6 +45,8 @@ public class UnityExample : MonoBehaviour
     string[] compoentNames;
     List<List<List<double>>> AllCollectionData = new List<List<List<double>>>();
     VerticalLayoutGroup verticalLayoutGroup;
+    public string latestEMGData;
+    public string latestHRData;
 
     private bool usingTrignoLink;
 
@@ -93,6 +95,8 @@ public class UnityExample : MonoBehaviour
         StopButton.enabled = stop;
         PairButton.enabled = pair;
         PipelineState.text = PipelineController.Instance.PipelineIds[0].CurrentState.ToString();
+        EMGText.text = latestEMGData;
+        HRText.text = latestHRData;
     }
 
     public void CopyUSBDriver()
@@ -330,6 +334,14 @@ public class UnityExample : MonoBehaviour
                 {
                     data.Add(e.Data[k].SensorData[i].ChannelData[j].Data);
                     for (int k2 = 0; k2 <e.Data[k].SensorData[i].ChannelData[j].Data.Count(); k2++){
+                        if (i == 1)//Heart Rate Sensor Index
+                        {
+                            latestHRData = e.Data[k].SensorData[i].ChannelData[j].Data[k2].ToString();
+                        }
+                        else if (i == 0)//Avanti Sensor Index
+                        {
+                            latestEMGData = e.Data[k].SensorData[i].ChannelData[j].Data[k2].ToString();
+                        }
                         Debug.Log(e.Data[k].SensorData[i].ChannelData[j].Data[k2]);
                     }
                 }
