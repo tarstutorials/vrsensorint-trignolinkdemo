@@ -97,8 +97,8 @@ public class UnityExample : MonoBehaviour
         StopButton.enabled = stop;
         PairButton.enabled = pair;
         PipelineState.text = PipelineController.Instance.PipelineIds[0].CurrentState.ToString();
-        EMGText.text = latestEMGData;
-        HRText.text = latestHRData;
+        EMGText.text = "Latest EMG Data: " + latestEMGData;
+        HRText.text = "Latest HR Data: " + latestHRData;
     }
 
     public void CopyUSBDriver()
